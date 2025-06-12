@@ -1,0 +1,62 @@
+{
+  "name": "controle-despensa",
+  "version": "1.0.0",
+  "description": "Projeto Controle de Despensa - Aplicação Desktop",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\" \"electron .\"",
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && npm run dev",
+    "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "build-frontend": "cd frontend && npm run build",
+    "build-backend": "cd backend && npm run build",
+    "build": "npm run build-frontend && npm run build-backend && electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "electron-is-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.controle.despensa",
+    "productName": "Controle de Despensa",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "frontend/build/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "backend",
+        "to": "backend",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "electron/assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "perMachine": false,
+      "deleteAppDataOnUninstall": true
+    },
+    "asar": true,
+    "asarUnpack": [
+      "backend/**/*"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.js"
+    }
+  }
+} 

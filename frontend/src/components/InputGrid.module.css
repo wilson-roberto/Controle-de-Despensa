@@ -1,0 +1,45 @@
+.inputGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.centeredInput {
+  text-align: center !important;
+  padding-right: 0.5rem !important;
+}
+
+.inputGroup .input-with-datalist {
+  width: 100%;
+  position: relative;
+}
+
+.inputGroup .input-with-datalist input {
+  width: 100%;
+  text-align: center;
+} 

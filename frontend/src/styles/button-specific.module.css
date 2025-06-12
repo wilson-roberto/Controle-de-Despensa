@@ -1,0 +1,70 @@
+@import './variables.css';
+@import './button-base.module.css';
+
+/* Importando as classes de variantes */
+:global {
+  @import './button-variants.module.css';
+}
+
+.add {
+  composes: success from './button-variants.module.css';
+  padding: var(--spacing-2) var(--spacing-4);
+  text-align: center;
+  flex-shrink: 0;
+  width: auto;
+}
+
+.cancel {
+  composes: secondary from './button-variants.module.css';
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--border-radius-md);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-md);
+}
+
+.cancel:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.cancel:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
+}
+
+.clear {
+  composes: primary from './button-variants.module.css';
+}
+
+.close {
+  background-color: var(--color-light);
+  color: var(--color-text);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+}
+
+.close:hover {
+  background-color: var(--color-light-hover);
+  color: var(--color-text);
+}
+
+.edit {
+  composes: primary from './button-variants.module.css';
+  width: auto;
+}
+
+.logout {
+  composes: danger from './button-variants.module.css';
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  width: auto;
+}
+
+.iconButton {
+  padding: 8px;
+  border-radius: 50%;
+  min-width: 40px;
+  min-height: 40px;
+} 

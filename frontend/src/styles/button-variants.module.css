@@ -1,0 +1,47 @@
+@import './variables.css';
+@import './button-base.module.css';
+
+.primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.secondary {
+  background-color: var(--color-gray-hover);
+  color: var(--color-white);
+}
+
+.secondary:hover {
+  background-color: var(--color-gray-hover);
+}
+
+.danger {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+}
+
+.danger:hover {
+  background-color: var(--color-danger-hover);
+}
+
+.success {
+  background-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.success:hover {
+  background-color: var(--color-success-hover);
+}
+
+.warning {
+  background-color: var(--color-warning);
+  color: var(--color-text);
+}
+
+.warning:hover {
+  background-color: var(--color-warning-hover);
+} 

@@ -1,0 +1,153 @@
+.inputGroup .date-field {
+  position: relative;
+  width: 100%;
+}
+
+.inputGroup .date-field input[type="date"] {
+  width: 100%;
+  padding-right: 2.5rem;
+  text-align: center;
+  background-color: white;
+  color: black;
+  position: relative;
+}
+
+.inputGroup .date-field input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.6;
+  padding: 0.5rem;
+  background: transparent;
+  z-index: 1;
+}
+
+.inputGroup .date-field input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+.inputGroup .date-field input[type="date"]::-webkit-datetime-edit {
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.inputGroup .date-field input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  text-align: center;
+}
+
+.inputGroup .date-field input[type="date"]::-webkit-datetime-edit-text {
+  padding: 0 0.2rem;
+}
+
+.inputGroup .date-field input[type="date"]::-webkit-datetime-edit-year-field,
+.inputGroup .date-field input[type="date"]::-webkit-datetime-edit-month-field,
+.inputGroup .date-field input[type="date"]::-webkit-datetime-edit-day-field {
+  padding: 0 0.2rem;
+}
+
+.dateInput {
+  background-color: white !important;
+  color: black !important;
+  -webkit-text-fill-color: black !important;
+  -webkit-appearance: none;
+  appearance: none;
+  text-align: center !important;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.dateInput::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+.datePickerWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.datePickerInput {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.datePickerInput:hover {
+  border-color: #999;
+}
+
+.datePickerInput:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Estilização do calendário */
+:global(.react-datepicker) {
+  font-family: inherit;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:global(.react-datepicker__header) {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+:global(.react-datepicker__day--selected) {
+  background-color: #4a90e2 !important;
+  border-radius: 4px;
+}
+
+:global(.react-datepicker__day:hover) {
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+:global(.react-datepicker__day--keyboard-selected) {
+  background-color: #4a90e2 !important;
+  border-radius: 4px;
+}
+
+:global(.react-datepicker__navigation) {
+  top: 8px;
+}
+
+:global(.react-datepicker__navigation--previous) {
+  left: 8px;
+}
+
+:global(.react-datepicker__navigation--next) {
+  right: 8px;
+}
+
+:global(.react-datepicker__year-dropdown) {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:global(.react-datepicker__year-option:hover) {
+  background-color: #e9ecef;
+}
+
+:global(.react-datepicker__year-option--selected) {
+  background-color: #4a90e2;
+  color: white;
+} 

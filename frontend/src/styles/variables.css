@@ -1,0 +1,79 @@
+:root {
+  /* Cores */
+  --color-primary: #3498db;      /* Usado em: buttons.css, Login.css, reset.css, utilities.css */
+  --color-primary-hover: #2980b9; /* Usado em: buttons.css, reset.css */
+  --color-success: #2ecc71;      /* Usado em: buttons.css, utilities.css */
+  --color-success-hover: #27ae60; /* Usado em: buttons.css */
+  --color-danger: #e95362;       /* dc3545  Usado em: buttons.css, Login.css, utilities.css */
+  --color-danger-hover: #c82333; /* Usado em: buttons.css */
+  --color-warning: #f1c40f;      /* Usado em: utilities.css */
+  --color-warning-hover: #f39c12; /* Usado em: utilities.css */
+  --color-gray: #6b7280;         /* Usado em: buttons.css, utilities.css */
+  --color-gray-hover: #4b5563;   /* Usado em: buttons.css */
+  --color-light: #e2e8f0;        /* Usado em: buttons.css, utilities.css */
+  --color-light-hover: #cbd5e0;  /* Usado em: buttons.css */
+  --color-disabled: #95a5a6;     /* Usado em: buttons.css */
+  --color-text: #333333;         /* Usado em: buttons.css, Login.css, reset.css, utilities.css */
+  --color-text-light: #666666;   /* Usado em: Login.css, reset.css, utilities.css */
+  --color-background: #f5f5f5;   /* Usado em: Login.css, reset.css, utilities.css */
+  --color-white: #ffffff;        /* Usado em: buttons.css, Login.css, reset.css, utilities.css */
+  --color-border: #d1d5db;       /* Usado em: buttons.css, Login.css, reset.css, utilities.css */
+
+  /* Tipografia */
+  --font-family-base: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Usado em: buttons.css, Login.css, reset.css, index.css */
+  --font-size-xs: 0.75rem;    /* 12px - Usado em: utilities.css */
+  --font-size-sm: 0.875rem;   /* 14px - Usado em: buttons.css, Login.css, utilities.css */
+  --font-size-base: 1rem;     /* 16px - Usado em: buttons.css, Login.css, reset.css, utilities.css */
+  --font-size-lg: 1.125rem;   /* 18px - Usado em: Login.css, utilities.css */
+  --font-size-xl: 1.25rem;    /* 20px - Usado em: utilities.css */
+  --font-size-2xl: 1.5rem;    /* 24px - Usado em: Login.css, utilities.css */
+  --font-weight-normal: 400;  /* Usado em: buttons.css, reset.css, index.css */
+  --font-weight-medium: 500;  /* Usado em: buttons.css, Login.css */
+  --font-weight-semibold: 600; /* Usado em: buttons.css, Login.css, reset.css */
+  --font-weight-bold: 700;    /* Usado em: utilities.css */
+
+  /* Espaçamento */
+  --spacing-1: 0.25rem;  /* 4px - Usado em: buttons.css, Login.css, utilities.css */
+  --spacing-2: 0.5rem;   /* 8px - Usado em: buttons.css, Login.css, utilities.css */
+  --spacing-3: 0.75rem;  /* 12px - Usado em: buttons.css, Login.css, reset.css, utilities.css */
+  --spacing-4: 1rem;     /* 16px - Usado em: buttons.css, Login.css, reset.css, utilities.css */
+  --spacing-5: 1.25rem;  /* 20px - Usado em: buttons.css, utilities.css */
+  --spacing-6: 1.5rem;   /* 24px - Usado em: buttons.css, Login.css, utilities.css */
+  --spacing-8: 2rem;     /* 32px - Usado em: Login.css */
+  --spacing-10: 2.5rem;  /* 40px - Não encontrado uso direto */
+  --spacing-12: 3rem;    /* 48px - Não encontrado uso direto */
+
+  /* Bordas */
+  --border-radius-sm: 0.25rem;  /* 4px - Usado em: buttons.css, Login.css */
+  --border-radius-md: 0.375rem; /* 6px - Usado em: buttons.css, Login.css */
+  --border-radius-lg: 0.5rem;   /* 8px - Usado em: Login.css */
+  --border-radius-xl: 1rem;     /* 16px - Não encontrado uso direto */
+  --border-width: 1px;          /* Usado em: buttons.css, Login.css, reset.css */
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);  /* Usado em: Login.css */
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);   /* Usado em: buttons.css, Login.css */
+  --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);   /* Usado em: buttons.css */
+  --shadow-xl: 0 10px 15px rgba(0, 0, 0, 0.1); /* Não encontrado uso direto */
+
+  /* Transições */
+  --transition-fast: 150ms ease;   /* Usado em: Login.css */
+  --transition-normal: 300ms ease; /* Usado em: buttons.css */
+  --transition-slow: 500ms ease;   /* Não encontrado uso direto */
+
+  /* Z-index */
+  --z-index-dropdown: 1000;        /* Não encontrado uso direto */
+  --z-index-sticky: 1020;          /* Não encontrado uso direto */
+  --z-index-fixed: 1030;           /* Não encontrado uso direto */
+  --z-index-modal-backdrop: 1040;  /* Não encontrado uso direto */
+  --z-index-modal: 1050;           /* Não encontrado uso direto */
+  --z-index-popover: 1060;         /* Não encontrado uso direto */
+  --z-index-tooltip: 1070;         /* Não encontrado uso direto */
+
+  /* Breakpoints */
+  --breakpoint-sm: 640px;   /* Não encontrado uso direto */
+  --breakpoint-md: 768px;   /* Não encontrado uso direto */
+  --breakpoint-lg: 1024px;  /* Não encontrado uso direto */
+  --breakpoint-xl: 1280px;  /* Não encontrado uso direto */
+  --breakpoint-2xl: 1536px; /* Não encontrado uso direto */
+} 

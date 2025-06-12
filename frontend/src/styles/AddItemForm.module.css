@@ -1,0 +1,46 @@
+.form-row-3 {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  margin: 15px 0;
+}
+
+.input-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-column label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.input-column input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.input-column input[type="number"] {
+  text-align: right;
+}
+
+.input-column input[type="date"] {
+  padding-right: 35px;
+}
+
+.date-field {
+  position: relative;
+  width: 100%;
+}
+
+.date-field input[type="date"] {
+  width: 100%;
+  min-width: 130px;
+} 

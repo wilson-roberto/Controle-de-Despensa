@@ -1,0 +1,138 @@
+@import './variables.css';
+
+/* Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Elementos de formulário */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Listas */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Imagens */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border-style: none;
+}
+
+/* Tabelas */
+table {
+  border-collapse: collapse;
+}
+
+/* Elementos de foco */
+:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Elementos de texto */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-4);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--spacing-4);
+}
+
+/* Elementos de formulário específicos */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-3);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-white);
+  background-clip: padding-box;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+textarea:focus {
+  border-color: var(--color-primary);
+  outline: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Placeholder */
+::placeholder {
+  color: var(--color-text-light);
+  opacity: 1;
+}
+
+/* Seleção de texto */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+} 

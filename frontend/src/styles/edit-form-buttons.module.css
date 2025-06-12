@@ -1,0 +1,92 @@
+.editFormButton {
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 1rem;
+  margin: 0 8px;
+  min-width: 120px;
+}
+
+.saveButton {
+  composes: editFormButton;
+  background-color: var(--success-color);
+  color: white;
+}
+
+.saveButton:hover {
+  background-color: var(--success-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cancelButton {
+  composes: editFormButton;
+  background-color: var(--gray-color);
+  color: var(--text-color);
+}
+
+.cancelButton:hover {
+  background-color: var(--gray-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.deleteButton {
+  composes: editFormButton;
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: var(--danger-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.editButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding: 16px;
+  background-color: var(--background-light);
+  border-radius: 8px;
+}
+
+.editButtonGroup {
+  display: flex;
+  gap: 12px;
+}
+
+.buttonDisabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 768px) {
+  .editFormButton {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    min-width: 100px;
+  }
+  
+  .editButtonContainer {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .editButtonGroup {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .editFormButton {
+    width: 100%;
+    margin: 4px 0;
+  }
+} 

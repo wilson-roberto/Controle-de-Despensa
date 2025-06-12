@@ -1,0 +1,114 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.notificationList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notificationItem {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notificationItem:last-child {
+  border-bottom: none;
+}
+
+.notificationContent {
+  margin-bottom: 1.5rem;
+}
+
+.notificationSummary {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.notificationDate {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.notificationActions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.whatsappButton {
+  background-color: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.whatsappButton:hover {
+  background-color: #1ebe57;
+}
+
+.closeButton {
+  background-color: #e2e8f0;
+  color: #4a5568;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: 8px;
+}
+
+.closeButton:hover {
+  background-color: #cbd5e0;
+  color: #2d3748;
+} 
