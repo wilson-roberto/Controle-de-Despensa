@@ -28,18 +28,14 @@ const userSchema = new mongoose.Schema({
       },
       {
         validator: function(v) {
-          // Pelo menos uma letra maiúscula
-          const hasUpperCase = /[A-Z]/.test(v);
-          // Pelo menos uma letra minúscula
-          const hasLowerCase = /[a-z]/.test(v);
+          // Pelo menos uma letra
+          const hasLetter = /[a-zA-Z]/.test(v);
           // Pelo menos um número
-          const hasNumbers = /\d/.test(v);
-          // Pelo menos um caractere especial
-          const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(v);
+          const hasNumber = /\d/.test(v);
           
-          return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar;
+          return hasLetter && hasNumber;
         },
-        message: 'Senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial'
+        message: 'Senha deve conter pelo menos uma letra e um número'
       }
     ]
   },

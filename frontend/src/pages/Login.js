@@ -97,7 +97,7 @@ const Login = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await api.post('/api/auth/login', formData);
+      const response = await api.post('/auth/login', formData);
       
       if (response.data && response.data.token) {
         login(response.data.token);

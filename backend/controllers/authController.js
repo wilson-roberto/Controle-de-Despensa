@@ -3,9 +3,10 @@ const jwt = require('jsonwebtoken');
 
 // Função para gerar token JWT
 const generateToken = (userId) => {
+  const secret = process.env.JWT_SECRET || 'chave_secreta_controle_despensa_2024';
   return jwt.sign(
     { id: userId },
-    process.env.JWT_SECRET || 'sua_chave_secreta_padrao',
+    secret,
     { expiresIn: '24h' }
   );
 };
