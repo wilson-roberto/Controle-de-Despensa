@@ -1,53 +1,36 @@
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const path = require('path');
+const helmet = require('helmet');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
 const connectDB = require('./config/database');
+const { currentConfig, env } = require('./config/config');
+const { logger, loggingMiddleware } = require('./config/logger');
 const itemRoutes = require('./routes/itemRoutes');
 const whatsappRoutes = require('./routes/whatsappRoutes');
-const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
-
-// Carrega as variáveis de ambiente
-dotenv.config();
-
-// Configurações padrão para diferentes ambientes
-const config = {
-  development: {
-    port: process.env.PORT || 5000,
-    mongoUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/controle-despensa',
-    corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-    logLevel: process.env.LOG_LEVEL || 'debug'
-  },
-  production: {
-    port: process.env.PORT || 5000,
-    mongoUri: process.env.MONGODB_URI,
-    corsOrigin: process.env.CORS_ORIGIN || '*',
-    logLevel: process.env.LOG_LEVEL || 'error'
-  }
-};
-
-// Seleciona a configuração baseada no ambiente
-const env = process.env.NODE_ENV || 'development';
-const currentConfig = config[env];
-
-// Validação de configurações críticas em produção
-if (env === 'production') {
-  const requiredEnvVars = ['MONGODB_URI'];
-  const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
-  
-  if (missingEnvVars.length > 0) {
-    console.error(`Erro: Variáveis de ambiente obrigatórias não definidas: ${missingEnvVars.join(', ')}`);
-    process.exit(1);
-  }
-}
 
 // Conectar ao banco de dados
 connectDB(currentConfig.mongoUri);
 
 const app = express();
 
-// Middleware
+// Middleware de segurança
+app.use(helmet());
+
+// Middleware de compressão
+app.use(compression());
+
+// Configuração do rate limiting
+const limiter = rateLimit({
+  windowMs: currentConfig.rateLimit.windowMs,
+  max: currentConfig.rateLimit.max,
+  message: 'Muitas requisições deste IP, por favor tente novamente mais tarde.'
+});
+app.use(limiter);
+
+// Middleware CORS
 app.use(cors({
   origin: currentConfig.corsOrigin,
   credentials: true
@@ -57,10 +40,7 @@ app.use(cors({
 app.use(express.json());
 
 // Middleware de logging
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  next();
-});
+app.use(loggingMiddleware);
 
 // Rotas
 app.use('/api/auth', authRoutes);
@@ -89,17 +69,23 @@ if (env === 'production') {
 
 // Tratamento de erros
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  logger.error('Erro na aplicação:', {
+    error: err.message,
+    stack: err.stack,
+    path: req.path,
+    method: req.method
+  });
+
   res.status(500).json({
     message: 'Erro interno do servidor',
-    error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    error: env === 'development' ? err.message : undefined
   });
 });
 
 // Iniciar servidor
 const PORT = currentConfig.port;
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT} em modo ${env}`);
-  console.log(`CORS origin configurado para: ${currentConfig.corsOrigin}`);
-  console.log(`Nível de log: ${currentConfig.logLevel}`);
+  logger.info(`Servidor rodando na porta ${PORT} em modo ${env}`);
+  logger.info(`CORS origin configurado para: ${currentConfig.corsOrigin}`);
+  logger.info(`Nível de log: ${currentConfig.logLevel}`);
 }); 

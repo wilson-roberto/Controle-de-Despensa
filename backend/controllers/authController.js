@@ -41,7 +41,6 @@ exports.login = async (req, res) => {
     // Busca usuário
     const user = await User.findOne({ username });
     if (!user) {
-      console.log(`[LOGIN ERRO] Tentativa de login com usuário inexistente: ${username}`);
       return res.status(401).json({
         message: 'Nome de usuário ou senha inválidos'
       });
@@ -50,7 +49,6 @@ exports.login = async (req, res) => {
     // Verifica senha
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      console.log(`[LOGIN ERRO] Senha incorreta para o usuário: ${username}`);
       return res.status(401).json({
         message: 'Nome de usuário ou senha inválidos'
       });
@@ -58,9 +56,6 @@ exports.login = async (req, res) => {
 
     // Atualiza último login
     await user.updateLastLogin();
-    console.log(`[LOGIN SUCESSO] Usuário ${username} logado com sucesso`);
-
-    // Gera token
     const token = generateToken(user._id);
 
     res.json({

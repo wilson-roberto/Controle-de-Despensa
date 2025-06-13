@@ -28,11 +28,8 @@ const userSchema = new mongoose.Schema({
       },
       {
         validator: function(v) {
-          // Pelo menos uma letra
           const hasLetter = /[a-zA-Z]/.test(v);
-          // Pelo menos um número
           const hasNumber = /\d/.test(v);
-          
           return hasLetter && hasNumber;
         },
         message: 'Senha deve conter pelo menos uma letra e um número'
