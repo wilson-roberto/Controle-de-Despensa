@@ -94,6 +94,48 @@
   box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
+.datePickerInput.matchSaidaWidth {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  text-align: center !important;
+}
+
+/* Classe específica para o campo Validade */
+.validadeField {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  text-align: center !important;
+  padding: 0.5rem !important;
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  font-size: 0.9rem !important;
+  background-color: white !important;
+  color: black !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+.validadeField:hover {
+  border-color: #999 !important;
+}
+
+.validadeField:focus {
+  outline: none !important;
+  border-color: #4a90e2 !important;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2) !important;
+}
+
+/* Wrapper específico para o campo Validade */
+.validadeWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 /* Estilização do calendário */
 :global(.react-datepicker) {
   font-family: inherit;

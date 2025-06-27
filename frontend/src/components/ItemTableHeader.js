@@ -1,20 +1,18 @@
 import React from 'react';
+import styles from '../styles/ItemTable.module.css';
 
 const ItemTableHeader = () => {
   return (
     <thead>
       <tr>
-        <th>Item</th>
-        <th>Unidade</th>
-        <th>Entrada</th>
-        <th>Data Entrada</th>
-        <th>Saída</th>
-        <th>Data Saída</th>
-        <th>Estoque</th>
-        <th>Validade</th>
-        <th>Estoque</th>
-        <th>WhatsApp</th>
-        <th>Ações</th>
+        <th className={styles.tableHeader}>Item</th>
+        <th className={styles.tableHeader}>Unidade</th>
+        <th className={styles.tableHeader}>Entrada</th>
+        <th className={styles.tableHeader}>Saída</th>
+        <th className={styles.tableHeader}>Estoque</th>
+        <th className={styles.tableHeader}>Validade</th>
+        <th className={styles.tableHeader}>Limite</th>
+        <th className={styles.tableHeader}>Ações</th>
       </tr>
     </thead>
   );

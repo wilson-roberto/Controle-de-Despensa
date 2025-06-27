@@ -13,13 +13,14 @@
 
 .modalContent {
   background-color: white;
-  padding: 2rem;
+  padding: 2.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
+  width: 95%;
+  max-width: 900px;
+  max-height: 85vh;
   overflow-y: auto;
+  position: relative;
 }
 
 .modalHeader {
@@ -44,11 +45,14 @@
 }
 
 .notificationItem {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  background-color: white;
+  border-radius: 6px;
+  padding: 15px;
+  border-left: 4px solid #e74c3c;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .notificationItem:last-child {
@@ -57,6 +61,7 @@
 
 .notificationContent {
   margin-bottom: 1.5rem;
+  margin-top: 2rem;
 }
 
 .notificationSummary {
@@ -74,41 +79,358 @@
 
 .notificationActions {
   display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  z-index: 10;
+  margin-bottom: 2.5rem;
 }
 
 .whatsappButton {
-  background-color: #25d366;
-  color: #fff;
+  background-color: #25D366;
+  color: white;
   border: none;
-  border-radius: 4px;
-  padding: 10px 24px;
-  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  min-height: 36px;
+  white-space: nowrap;
+  width: 140px;
 }
 
 .whatsappButton:hover {
-  background-color: #1ebe57;
+  background-color: #128C7E;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+}
+
+.whatsappButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(37, 211, 102, 0.3);
+}
+
+.whatsappButton:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.whatsappButton:focus {
+  outline: 2px solid #2196F3;
+  outline-offset: 2px;
 }
 
 .closeButton {
-  background-color: #e2e8f0;
-  color: #4a5568;
+  background-color: #e74c3c;
+  color: white;
   border: none;
-  border-radius: 4px;
-  padding: 10px 24px;
-  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
-  margin-left: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  white-space: nowrap;
+  width: 140px;
 }
 
 .closeButton:hover {
-  background-color: #cbd5e0;
-  color: #2d3748;
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
+
+.closeButton:focus {
+  outline: 2px solid #2196F3;
+  outline-offset: 2px;
+}
+
+/* Seção de Debug */
+.debugSection {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.debugButton {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.debugButton:hover {
+  background-color: #5a6268;
+}
+
+.debugInfo {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+}
+
+.debugInfo h4 {
+  margin: 0 0 10px 0;
+  color: #495057;
+  font-size: 14px;
+}
+
+.debugInfo p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.debugInfo ul {
+  margin: 5px 0;
+  padding-left: 20px;
+}
+
+.debugInfo li {
+  margin: 3px 0;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.debugActions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.testButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.testButton:hover {
+  background-color: #0056b3;
+}
+
+.testButton:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Estilos para as seções de notificação */
+.notificationSection {
+  margin-bottom: 25px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.notificationSection h3 {
+  margin: 0 0 20px 0;
+  color: #495057;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.notificationItemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.notificationItemHeader {
+  margin-bottom: 10px;
+}
+
+.notificationItemHeader h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.notificationItem p {
+  margin: 5px 0;
+  line-height: 1.4;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notificationItem strong {
+  color: #333;
+  font-weight: 600;
+  min-width: 80px;
+}
+
+/* Estilos para as seções de status */
+.statusSection {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #dee2e6;
+}
+
+.statusLabel {
+  margin: 0 0 8px 0;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.statusValue {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.stockDetails, .validityDetails {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.contactSection {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #e9ecef;
+}
+
+.contactLabel {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+/* Classes de status */
+.statusExpired {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.statusWarning {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+.statusInfo {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.lowStockItemRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+.notificationItemName {
+  min-width: 200px;
+  max-width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.notificationItemName h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notificationItemStock {
+  flex: 1;
+  text-align: center;
+  color: #555;
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 150px;
+  white-space: nowrap;
+}
+
+.notificationItemLimit {
+  flex: 1;
+  text-align: center;
+  color: #555;
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 150px;
+  white-space: nowrap;
+}
+
+.notificationItemStock strong,
+.notificationItemLimit strong {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Media query para dispositivos móveis */
+@media (max-width: 768px) {
+  .modalContent {
+    width: 98%;
+    max-width: 95vw;
+    padding: 1rem;
+  }
+  
+  .notificationActions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .whatsappButton,
+  .closeButton {
+    width: 120px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+  
+  .lowStockItemRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .notificationItemName,
+  .notificationItemStock,
+  .notificationItemLimit {
+    min-width: auto;
+    max-width: none;
+    text-align: left;
+  }
 } 

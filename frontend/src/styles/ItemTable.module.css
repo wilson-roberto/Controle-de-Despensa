@@ -7,18 +7,24 @@
   border-radius: 8px;
   overflow: hidden;
   table-layout: fixed;
+  border: 1px solid #dee2e6;
 }
 
 .tableHeader {
   background-color: #f8f9fa;
   color: #495057;
   font-weight: 600;
-  text-align: left;
+  text-align: center;
   padding: 1rem;
   border-bottom: 2px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.tableHeader:last-child {
+  border-right: none;
 }
 
 .tableRow {
@@ -33,12 +39,27 @@
 .tableCell {
   padding: 1rem;
   border-bottom: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
   color: #212529;
   word-break: break-word;
+  text-align: center;
 }
 
 .tableCell:last-child {
-  text-align: right;
+  text-align: center;
+  border-right: none;
+}
+
+.numberCell {
+  text-align: center;
+}
+
+/* Classe específica para a coluna de ações */
+.actionsCell {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+  padding: 0.25rem;
 }
 
 @media (max-width: 768px) {
@@ -56,6 +77,12 @@
 
   .tableHeader {
     position: relative;
+  }
+
+  .actionsCell {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
   }
 }
 

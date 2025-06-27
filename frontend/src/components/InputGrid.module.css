@@ -6,10 +6,16 @@
   width: 100%;
 }
 
+/* Para quando há apenas um campo na linha (como Limite de Estoque) */
+.inputGrid:has(.inputGroup:only-child) {
+  grid-template-columns: 1fr;
+}
+
 .inputGroup {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .inputGroup label {
@@ -27,6 +33,7 @@
   border-radius: 4px;
   font-size: 0.9rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .centeredInput {
@@ -42,4 +49,5 @@
 .inputGroup .input-with-datalist input {
   width: 100%;
   text-align: center;
+  box-sizing: border-box;
 } 

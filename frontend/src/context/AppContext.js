@@ -65,7 +65,6 @@ export function AppProvider({ children }) {
       // Identificar itens com estoque baixo
       const lowStockItems = data
         .filter(item => {
-          const itemId = item._id || item.id;
           const estoque = Number(item.totalEstoque);
           const limite = Number(item.limiteEstoque);
           const isLow = estoque <= limite;
@@ -81,7 +80,7 @@ export function AppProvider({ children }) {
           const hoje = new Date();
           const diffTime = dataValidade - hoje;
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-          return diffDays <= 7;
+          return diffDays <= 15;
         })
         .map(item => item._id || item.id);
 
@@ -126,8 +125,12 @@ export function AppProvider({ children }) {
       console.log('Iniciando adição de item:', itemData);
       setState(prev => ({ ...prev, loading: true, error: null }));
       
-      if (!itemData.nome) {
-        throw new Error('O item é obrigatório');
+      if (!itemData.nome || itemData.nome.trim() === '') {
+        throw new Error('O nome do item é obrigatório');
+      }
+      
+      if (!itemData.unidade || itemData.unidade.trim() === '') {
+        throw new Error('A unidade do item é obrigatória');
       }
       
       const quantidadeEntrada = Number(itemData.quantidadeEntrada || 0);
@@ -138,6 +141,8 @@ export function AppProvider({ children }) {
         ...itemData,
         totalEstoque: totalEstoque
       };
+      
+      console.log('Dados a serem enviados para a API:', updatedItemData);
       
       const response = await api.post('/items', updatedItemData);
       const newItem = response.data;
@@ -153,17 +158,26 @@ export function AppProvider({ children }) {
       return newItem;
     } catch (error) {
       console.error('Erro ao adicionar item:', error);
+      
+      let errorMessage = 'Erro desconhecido ao adicionar item';
+      
+      if (error.response && error.response.data) {
+        if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+          errorMessage = error.response.data.errors.join(', ');
+        } else if (error.response.data.message) {
+          errorMessage = error.response.data.message;
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
       setState(prev => ({
         ...prev,
-        error: (error.response && error.response.data && error.response.data.message)
-          ? `Erro detalhado: ${error.response.data.message}`
-          : error.message || 'Erro desconhecido ao adicionar item',
+        error: errorMessage,
         loading: false
       }));
-      if (error.response) {
-        console.error('Detalhes do erro na resposta da API:', error.response.data);
-      }
-      throw error;
+      
+      throw new Error(errorMessage);
     }
   }, [isAuthenticated]);
 
@@ -348,7 +362,7 @@ export function AppProvider({ children }) {
       const hoje = new Date();
       const diffTime = dataValidade - hoje;
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      isExpired = diffDays <= 7 && !item.notificadoValidade;
+      isExpired = diffDays <= 15 && !item.notificadoValidade;
     }
 
     return isLowStock || isExpired;
@@ -383,7 +397,7 @@ export function AppProvider({ children }) {
     const diffTime = dataValidade - hoje;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
-    return diffDays <= 7 && !item.notificadoValidade;
+    return diffDays <= 15 && !item.notificadoValidade;
   }, [isAuthenticated, state.items]);
 
   // Resetar notificação de um item
@@ -428,7 +442,7 @@ export function AppProvider({ children }) {
       console.error('Erro ao resetar notificação do item:', error);
       throw error;
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, state.items]);
 
   const value = {
     state,

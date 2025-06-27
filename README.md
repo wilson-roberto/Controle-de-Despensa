@@ -58,6 +58,40 @@ O Controle de Despensa é uma aplicação desktop que permite gerenciar de forma
 
 ## 🚀 Instalação
 
+### Setup Automatizado (Recomendado)
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/wilson-roberto/Controle-de-Despensa.git
+cd Controle-de-Despensa
+```
+
+2. Execute o setup automatizado:
+
+**Para Windows:**
+```powershell
+npm run setup-windows
+```
+
+**Para Linux/macOS:**
+```bash
+npm run setup
+```
+
+3. Verifique se tudo está configurado:
+
+**Para Windows:**
+```powershell
+npm run check-windows
+```
+
+**Para Linux/macOS:**
+```bash
+npm run check
+```
+
+### Setup Manual
+
 1. Clone o repositório:
 ```bash
 git clone https://github.com/wilson-roberto/Controle-de-Despensa.git
@@ -66,16 +100,15 @@ cd controle-despensa
 
 2. Instale as dependências:
 ```bash
+# Instalar dependências do projeto principal
+npm install
+
 # Instalar dependências do frontend
 cd frontend
 npm install
 
 # Instalar dependências do backend
 cd ../backend
-npm install
-
-# Instalar dependências do Electron
-cd ../electron
 npm install
 ```
 
@@ -98,21 +131,29 @@ REACT_APP_WHATSAPP_API_KEY=sua_chave_api
 
 ### Desenvolvimento
 
+**Método Simplificado (Recomendado):**
+```bash
+npm run dev
+```
+
+Este comando inicia automaticamente:
+- Backend na porta 5000
+- Frontend na porta 3000
+- Electron (aplicação desktop)
+
+**Método Individual:**
 1. Inicie o backend:
 ```bash
-cd backend
-npm run dev
+npm run backend
 ```
 
 2. Em outro terminal, inicie o frontend:
 ```bash
-cd frontend
-npm start
+npm run frontend
 ```
 
 3. Em um terceiro terminal, inicie o Electron:
 ```bash
-cd electron
 npm start
 ```
 
@@ -120,37 +161,96 @@ npm start
 
 Para criar a versão de produção:
 
+**Para Windows:**
+```powershell
+npm run build-windows
+```
+
+**Para Linux/macOS:**
 ```bash
-# No diretório raiz
 npm run build
+```
+
+## 🔧 Comandos Úteis
+
+### Verificação e Setup
+```bash
+npm run check-windows        # Verificar ambiente (Windows)
+npm run check               # Verificar ambiente (Linux/macOS)
+npm run setup-windows       # Setup completo (Windows)
+npm run setup               # Setup completo (Linux/macOS)
+```
+
+### Desenvolvimento
+```bash
+npm run dev                 # Ambiente completo
+npm run frontend           # Apenas frontend
+npm run backend            # Apenas backend
+```
+
+### Build
+```bash
+npm run build-windows       # Build completo (Windows)
+npm run build              # Build completo (Linux/macOS)
+npm run build-frontend      # Apenas frontend
+npm run build-backend       # Apenas backend
+```
+
+### Testes
+```bash
+npm test                   # Todos os testes
+npm run test-frontend      # Testes do frontend
+npm run test-backend       # Testes do backend
+```
+
+### Limpeza
+```bash
+npm run clean-windows      # Limpar builds (Windows)
+npm run clean              # Limpar builds (Linux/macOS)
 ```
 
 ## 📁 Estrutura do Projeto
 
 ```
 controle-despensa/
-├── frontend/          # Aplicação React
-│   ├── public/       # Arquivos estáticos
-│   └── src/          # Código fonte
-│       ├── components/  # Componentes reutilizáveis
-│       ├── pages/      # Páginas da aplicação
-│       ├── context/    # Contextos do React
-│       ├── services/   # Serviços e APIs
-│       ├── hooks/      # Custom hooks
-│       ├── utils/      # Funções utilitárias
-│       ├── styles/     # Estilos globais
-│       └── types/      # Definições de tipos
-├── backend/          # API Node.js
-│   ├── src/         # Código fonte
-│   │   ├── controllers/  # Controladores
-│   │   ├── models/      # Modelos do MongoDB
-│   │   ├── routes/      # Rotas da API
-│   │   ├── services/    # Serviços
-│   │   └── utils/       # Utilitários
-│   └── tests/       # Testes
-├── electron/         # Configuração do Electron
+├── scripts/               # Scripts automatizados
+│   ├── setup.js          # Setup para Linux/macOS
+│   ├── setup-windows.js  # Setup para Windows
+│   ├── build.js          # Build para Linux/macOS
+│   ├── build-windows.js  # Build para Windows
+│   ├── dev.js            # Desenvolvimento
+│   └── check.js          # Verificação
+├── frontend/             # Aplicação React
+│   ├── public/          # Arquivos estáticos
+│   └── src/             # Código fonte
+│       ├── components/   # Componentes reutilizáveis
+│       ├── pages/       # Páginas da aplicação
+│       ├── context/     # Contextos do React
+│       ├── services/    # Serviços e APIs
+│       ├── hooks/       # Custom hooks
+│       ├── utils/       # Funções utilitárias
+│       ├── styles/      # Estilos globais
+│       └── types/       # Definições de tipos
+├── backend/             # API Node.js
+│   ├── src/            # Código fonte
+│   │   ├── controllers/ # Controladores
+│   │   ├── models/     # Modelos do MongoDB
+│   │   ├── routes/     # Rotas da API
+│   │   ├── services/   # Serviços
+│   │   └── utils/      # Utilitários
+│   └── tests/          # Testes
+├── electron/            # Configuração do Electron
+├── dist/               # Build de produção
 └── README.md
 ```
+
+## 📚 Documentação
+
+- **[WINDOWS_SETUP.md](WINDOWS_SETUP.md)** - Guia específico para Windows
+- **[REBUILD.md](REBUILD.md)** - Guia de rebuild completo
+- **[REBUILD_CHECKLIST.md](REBUILD_CHECKLIST.md)** - Checklist detalhado
+- **[PRODUCTION.md](PRODUCTION.md)** - Guia de produção
+- **[backend/docs/api.md](backend/docs/api.md)** - Documentação da API
 
 ## 🤝 Contribuição
 

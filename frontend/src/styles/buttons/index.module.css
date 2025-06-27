@@ -49,6 +49,14 @@
   background-color: #c0392b;
 }
 
+.register {
+  background-color: #9b59b6;
+}
+
+.register:hover {
+  background-color: #8e44ad;
+}
+
 /* Estilos para os botões do formulário */
 .btn-add {
   background-color: var(--color-success);
@@ -79,20 +87,19 @@
 
 .buttonContainer {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  gap: 0.25rem;
   align-items: center;
-  width: 1px;
-  white-space: nowrap;
-  margin: 0 auto;
-  padding: 0.75rem 0;
+  justify-content: center;
+  width: 100%;
+  padding: 0.25rem 0;
 }
 
 .buttonContainer button {
-  min-width: 100px;
-}
-
-.buttonContainer button:not(:last-child) {
-  margin-bottom: 1rem;
+  min-width: 60px;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
@@ -104,5 +111,15 @@
   .button {
     width: 100%;
     max-width: 300px;
+  }
+  
+  .buttonContainer {
+    gap: 0.125rem;
+  }
+  
+  .buttonContainer button {
+    min-width: 50px;
+    padding: 0.25rem 0.375rem;
+    font-size: 0.7rem;
   }
 } 

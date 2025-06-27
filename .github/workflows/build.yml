@@ -1,0 +1,160 @@
+name: Build Multiplatform
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  release:
+    types: [published]
+
+jobs:
+  build-windows:
+    name: Build Windows
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm run install-all
+        
+      - name: Setup environment
+        run: npm run setup
+        
+      - name: Build for Windows
+        run: npm run build
+        
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: dist/*.exe
+          retention-days: 30
+
+  build-macos:
+    name: Build macOS
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm run install-all
+        
+      - name: Setup environment
+        run: npm run setup
+        
+      - name: Build for macOS
+        run: npm run build-mac
+        
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-build
+          path: dist/*.dmg
+          retention-days: 30
+
+  build-linux:
+    name: Build Linux
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install Linux dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm
+          
+      - name: Install dependencies
+        run: npm run install-all
+        
+      - name: Setup environment
+        run: npm run setup
+        
+      - name: Build for Linux
+        run: npm run build-linux
+        
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: dist/*.AppImage
+          retention-days: 30
+
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [build-windows, build-macos, build-linux]
+    if: github.event_name == 'release'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            artifacts/windows-build/*.exe
+            artifacts/macos-build/*.dmg
+            artifacts/linux-build/*.AppImage
+          body: |
+            ## 🚀 Controle de Despensa v${{ github.ref_name }}
+            
+            ### 📦 Downloads disponíveis:
+            
+            **Windows:**
+            - Instalador (.exe)
+            - Versão portátil (.exe)
+            
+            **macOS:**
+            - Instalador (.dmg)
+            - Versão compactada (.zip)
+            
+            **Linux:**
+            - AppImage (.AppImage)
+            - Pacote Debian (.deb)
+            - Pacote RPM (.rpm)
+            
+            ### 🔧 Instalação:
+            1. Baixe o arquivo para sua plataforma
+            2. Execute o instalador ou extraia o arquivo
+            3. Execute o aplicativo
+            
+            ### 📋 Requisitos:
+            - Windows 10/11
+            - macOS 10.14+ (Mojave)
+            - Ubuntu 18.04+ / Debian 9+ / Fedora 28+
+            
+            ### 🐛 Problemas?
+            Abra uma issue no GitHub: https://github.com/${{ github.repository }}/issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 

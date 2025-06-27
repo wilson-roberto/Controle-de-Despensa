@@ -1,5 +1,3 @@
-import { formatWhatsAppNumbers } from '../utils/whatsappFormatter';
-
 export const itemService = {
   prepareItemData: (formData) => {
     const quantidadeEntrada = Number(formData.quantidadeEntrada || 0);
@@ -13,8 +11,7 @@ export const itemService = {
       quantidadeEntrada,
       quantidadeSaida,
       totalEstoque,
-      limiteEstoque: Number(formData.limiteEstoque || 0),
-      whatsapp: formatWhatsAppNumbers(formData.whatsapp)
+      limiteEstoque: Number(formData.limiteEstoque || 0)
     };
   }
 }; 

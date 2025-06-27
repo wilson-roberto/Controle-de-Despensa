@@ -15,15 +15,21 @@ const DatePickerField = ({ id, label, value, onChange, name }) => {
     });
   };
 
+  // Determinar se é o campo Validade para aplicar classe específica
+  const isValidadeField = label === 'Validade';
+  const inputClassName = isValidadeField ? dateStyles.validadeField : dateStyles.datePickerInput;
+  const wrapperClassName = isValidadeField ? dateStyles.validadeWrapper : dateStyles.datePickerWrapper;
+
   return (
     <div className={gridStyles.inputGroup}>
       <label htmlFor={id}>{label}</label>
-      <div className={dateStyles.datePickerWrapper}>
+      <div className={wrapperClassName}>
         <DatePicker
           id={id}
           selected={value ? new Date(value) : null}
           onChange={handleDateChange}
-          className={dateStyles.datePickerInput}
+          className={inputClassName}
+          data-testid="datepicker-input"
           {...datepickerConfig}
         />
       </div>

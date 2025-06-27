@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { capitalizeWords, autoAccent } from '../utils/formatters';
 
 const initialState = {
   nome: '',
@@ -6,11 +7,8 @@ const initialState = {
   dataValidade: '',
   limiteEstoque: '',
   quantidadeEntrada: '',
-  dataUltimaEntrada: '',
   quantidadeSaida: '',
-  dataUltimaSaida: '',
   totalEstoque: '',
-  whatsapp: '',
   notificado: false
 };
 
@@ -19,16 +17,22 @@ export const useFormState = (editingItem = null) => {
     ...initialState,
     ...editingItem,
     dataValidade: editingItem.dataValidade ? editingItem.dataValidade.split('T')[0] : '',
-    dataUltimaEntrada: editingItem.dataUltimaEntrada ? editingItem.dataUltimaEntrada.split('T')[0] : '',
-    dataUltimaSaida: editingItem.dataUltimaSaida ? editingItem.dataUltimaSaida.split('T')[0] : '',
-    whatsapp: Array.isArray(editingItem.whatsapp) ? editingItem.whatsapp.join(', ') : '',
   } : initialState);
 
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     
     setFormData(prev => {
-      const newData = { ...prev, [name]: value };
+      const newData = { ...prev };
+      
+      // Aplicar formatação de capitalização para nome e unidade
+      if (name === 'nome') {
+        newData[name] = capitalizeWords(autoAccent(value));
+      } else if (name === 'unidade') {
+        newData[name] = capitalizeWords(value);
+      } else {
+        newData[name] = value;
+      }
       
       // Calcular o total em estoque
       const quantidadeEntrada = Number(newData.quantidadeEntrada || 0);
@@ -39,14 +43,6 @@ export const useFormState = (editingItem = null) => {
     });
   }, []);
 
-  const handleWhatsAppChange = useCallback((e) => {
-    const inputValue = e.target.value;
-    setFormData(prev => ({
-      ...prev,
-      whatsapp: inputValue
-    }));
-  }, []);
-
   const resetForm = useCallback(() => {
     setFormData(initialState);
   }, []);
@@ -55,7 +51,6 @@ export const useFormState = (editingItem = null) => {
     formData,
     setFormData,
     handleInputChange,
-    handleWhatsAppChange,
     resetForm
   };
 }; 

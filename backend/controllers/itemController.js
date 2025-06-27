@@ -23,14 +23,14 @@ const createItem = async (req, res) => {
     console.log('Dados recebidos para criar item:', req.body);
     
     // Verificar se o nome é fornecido
-    if (!req.body.nome) {
-      console.log('Erro: Nome do item não fornecido');
+    if (!req.body.nome || req.body.nome.trim() === '') {
+      console.log('Erro: Nome do item não fornecido ou vazio');
       return res.status(400).json({ message: 'Item é obrigatório' });
     }
     
     // Verificar se a unidade é fornecida
-    if (!req.body.unidade) {
-      console.log('Erro: Unidade do item não fornecida');
+    if (!req.body.unidade || req.body.unidade.trim() === '') {
+      console.log('Erro: Unidade do item não fornecida ou vazia');
       return res.status(400).json({ message: 'Unidade é obrigatória' });
     }
     
@@ -44,14 +44,13 @@ const createItem = async (req, res) => {
       nome: req.body.nome.trim(),
       unidade: req.body.unidade.trim(),
       quantidadeEntrada: quantidadeEntrada,
-      dataUltimaEntrada: req.body.dataUltimaEntrada,
       quantidadeSaida: quantidadeSaida,
-      dataUltimaSaida: req.body.dataUltimaSaida,
       totalEstoque: totalEstoque,
-      dataValidade: req.body.dataValidade,
-      limiteEstoque: req.body.limiteEstoque || 0,
-      whatsapp: req.body.whatsapp || '',
-      notificado: req.body.notificado || false
+      dataValidade: req.body.dataValidade || null,
+      limiteEstoque: Number(req.body.limiteEstoque || 0),
+      notificado: false,
+      notificadoEstoque: false,
+      notificadoValidade: false
     };
     
     console.log('Dados processados para criar item:', itemData);
@@ -68,7 +67,17 @@ const createItem = async (req, res) => {
     res.status(201).json(item);
   } catch (error) {
     console.error('Erro ao criar item:', error);
-    res.status(400).json({ message: error.message });
+    
+    // Tratar erros de validação do Mongoose
+    if (error.name === 'ValidationError') {
+      const validationErrors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ 
+        message: 'Erro de validação', 
+        errors: validationErrors 
+      });
+    }
+    
+    res.status(500).json({ message: 'Erro interno do servidor' });
   }
 };
 
@@ -88,7 +97,8 @@ const updateItem = async (req, res) => {
     // Atualizar o totalEstoque no objeto de atualização
     const updateData = {
       ...req.body,
-      totalEstoque: totalEstoque
+      totalEstoque: totalEstoque,
+      limiteEstoque: Number(req.body.limiteEstoque ?? 0)
     };
 
     // Se o estoque foi atualizado para acima do limite, resetar a notificação de estoque
@@ -96,13 +106,13 @@ const updateItem = async (req, res) => {
       updateData.notificadoEstoque = false;
     }
 
-    // Se a data de validade foi atualizada para mais de 7 dias no futuro, resetar a notificação de validade
+    // Se a data de validade foi atualizada para mais de 15 dias no futuro, resetar a notificação de validade
     if (updateData.dataValidade) {
       const dataValidade = new Date(updateData.dataValidade);
       const hoje = new Date();
       const diffTime = dataValidade - hoje;
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      if (diffDays > 7) {
+      if (diffDays > 15) {
         updateData.notificadoValidade = false;
       }
     }

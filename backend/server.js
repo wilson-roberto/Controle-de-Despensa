@@ -8,8 +8,8 @@ const connectDB = require('./config/database');
 const { currentConfig, env } = require('./config/config');
 const { logger, loggingMiddleware } = require('./config/logger');
 const itemRoutes = require('./routes/itemRoutes');
-const whatsappRoutes = require('./routes/whatsappRoutes');
 const authRoutes = require('./routes/authRoutes');
+const notificationUserRoutes = require('./routes/notificationUserRoutes');
 
 // Conectar ao banco de dados
 connectDB(currentConfig.mongoUri);
@@ -45,7 +45,7 @@ app.use(loggingMiddleware);
 // Rotas
 app.use('/api/auth', authRoutes);
 app.use('/api/items', itemRoutes);
-app.use('/api/whatsapp', whatsappRoutes);
+app.use('/api/notification-users', notificationUserRoutes);
 
 // Rota de teste
 app.get('/', (req, res) => {
@@ -82,10 +82,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Iniciar servidor
-const PORT = currentConfig.port;
-app.listen(PORT, () => {
-  logger.info(`Servidor rodando na porta ${PORT} em modo ${env}`);
-  logger.info(`CORS origin configurado para: ${currentConfig.corsOrigin}`);
-  logger.info(`Nível de log: ${currentConfig.logLevel}`);
-}); 
+// Iniciar servidor apenas se não estiver em ambiente de teste
+if (process.env.NODE_ENV !== 'test') {
+  const PORT = currentConfig.port;
+  app.listen(PORT, () => {
+    logger.info(`Servidor rodando na porta ${PORT} em modo ${env}`);
+    logger.info(`CORS origin configurado para: ${currentConfig.corsOrigin}`);
+    logger.info(`Nível de log: ${currentConfig.logLevel}`);
+  });
+}
+
+module.exports = app; 

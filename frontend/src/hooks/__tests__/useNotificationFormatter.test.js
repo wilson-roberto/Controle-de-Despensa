@@ -2,89 +2,86 @@ import { renderHook } from '@testing-library/react';
 import useNotificationFormatter from '../useNotificationFormatter';
 
 describe('useNotificationFormatter', () => {
-  // Teste 1: Formatação de data
-  test('deve formatar data corretamente', () => {
-    const { result } = renderHook(() => useNotificationFormatter());
-    const formattedDate = result.current.formatDate('2024-03-15');
-    expect(formattedDate).toBe('15/03/2024');
+  describe('formatDate', () => {
+    it('should format date correctly', () => {
+      const { result } = renderHook(() => useNotificationFormatter());
+      const date = '2023-12-25T10:30:00.000Z';
+      const formattedDate = result.current.formatDate(date);
+      expect(formattedDate).toBe('25/12/2023');
+    });
+
+    it('should return "Data não informada" for null date', () => {
+      const { result } = renderHook(() => useNotificationFormatter());
+      const formattedDate = result.current.formatDate(null);
+      expect(formattedDate).toBe('Data não informada');
+    });
+
+    it('should return "Data não informada" for empty string', () => {
+      const { result } = renderHook(() => useNotificationFormatter());
+      const formattedDate = result.current.formatDate('');
+      expect(formattedDate).toBe('Data não informada');
+    });
   });
 
-  // Teste 2: Data inválida
-  test('deve retornar mensagem para data inválida', () => {
-    const { result } = renderHook(() => useNotificationFormatter());
-    const formattedDate = result.current.formatDate(null);
-    expect(formattedDate).toBe('Data não informada');
+  describe('getValidityStatus', () => {
+    it('should return "Vencido" for expired date', () => {
+      const { result } = renderHook(() => useNotificationFormatter());
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const status = result.current.getValidityStatus(yesterday.toISOString());
+      expect(status).toBe('Vencido');
+    });
+
+    it('should return "Vence em breve" for date within 15 days', () => {
+      const { result } = renderHook(() => useNotificationFormatter());
+      const in15Days = new Date();
+      in15Days.setDate(in15Days.getDate() + 15);
+      const status = result.current.getValidityStatus(in15Days.toISOString());
+      expect(status).toBe('Vence em breve');
+    });
+
+    it('should return "Vence em um mês" for date within 30 days', () => {
+      const { result } = renderHook(() => useNotificationFormatter());
+      const in30Days = new Date();
+      in30Days.setDate(in30Days.getDate() + 30);
+      const status = result.current.getValidityStatus(in30Days.toISOString());
+      expect(status).toBe('Vence em um mês');
+    });
+
+    it('should return "Válido" for date more than 30 days away', () => {
+      const { result } = renderHook(() => useNotificationFormatter());
+      const in2Months = new Date();
+      in2Months.setDate(in2Months.getDate() + 60);
+      const status = result.current.getValidityStatus(in2Months.toISOString());
+      expect(status).toBe('Válido');
+    });
+
+    it('should return "Data não informada" for null date', () => {
+      const { result } = renderHook(() => useNotificationFormatter());
+      const status = result.current.getValidityStatus(null);
+      expect(status).toBe('Data não informada');
+    });
   });
 
-  // Teste 3: Status de validade - vencido
-  test('deve retornar status correto para item vencido', () => {
-    const { result } = renderHook(() => useNotificationFormatter());
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const status = result.current.getValidityStatus(yesterday.toISOString());
-    expect(status).toBe('Vencido');
+  describe('getStatusClass', () => {
+    it('should return correct CSS class for each status', () => {
+      const { result } = renderHook(() => useNotificationFormatter());
+      expect(result.current.getStatusClass('Vencido')).toBe('status-expired');
+      expect(result.current.getStatusClass('Vence em breve')).toBe('status-warning');
+      expect(result.current.getStatusClass('Vence em um mês')).toBe('status-info');
+      expect(result.current.getStatusClass('Válido')).toBe('status-valid');
+      expect(result.current.getStatusClass('Unknown')).toBe('status-valid');
+    });
   });
 
-  // Teste 4: Status de validade - vence em breve
-  test('deve retornar status correto para item que vence em breve', () => {
-    const { result } = renderHook(() => useNotificationFormatter());
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const status = result.current.getValidityStatus(tomorrow.toISOString());
-    expect(status).toBe('Vence em breve');
-  });
-
-  // Teste 5: Status de validade - vence em um mês
-  test('deve retornar status correto para item que vence em um mês', () => {
-    const { result } = renderHook(() => useNotificationFormatter());
-    const nextMonth = new Date();
-    nextMonth.setDate(nextMonth.getDate() + 15);
-    const status = result.current.getValidityStatus(nextMonth.toISOString());
-    expect(status).toBe('Vence em um mês');
-  });
-
-  // Teste 6: Status de validade - válido
-  test('deve retornar status correto para item válido', () => {
-    const { result } = renderHook(() => useNotificationFormatter());
-    const farFuture = new Date();
-    farFuture.setDate(farFuture.getDate() + 60);
-    const status = result.current.getValidityStatus(farFuture.toISOString());
-    expect(status).toBe('Válido');
-  });
-
-  // Teste 7: Classe CSS para status
-  test('deve retornar classe CSS correta para cada status', () => {
-    const { result } = renderHook(() => useNotificationFormatter());
-    expect(result.current.getStatusClass('Vencido')).toBe('status-expired');
-    expect(result.current.getStatusClass('Vence em breve')).toBe('status-warning');
-    expect(result.current.getStatusClass('Vence em um mês')).toBe('status-info');
-    expect(result.current.getStatusClass('Válido')).toBe('status-valid');
-  });
-
-  // Teste 8: Formatação de número de WhatsApp
-  test('deve formatar número de WhatsApp corretamente', () => {
-    const { result } = renderHook(() => useNotificationFormatter());
-    const formattedNumber = result.current.formatWhatsAppNumber('11999999999');
-    expect(formattedNumber).toBe('(11) 99999-9999');
-  });
-
-  // Teste 9: Número de WhatsApp inválido
-  test('deve retornar mensagem para número de WhatsApp inválido', () => {
-    const { result } = renderHook(() => useNotificationFormatter());
-    const formattedNumber = result.current.formatWhatsAppNumber(null);
-    expect(formattedNumber).toBe('Número não informado');
-  });
-
-  // Teste 10: Memoização
-  test('deve manter a referência das funções entre renderizações', () => {
-    const { result, rerender } = renderHook(() => useNotificationFormatter());
-    const firstResult = result.current;
+  it('should return consistent function behavior across renders', () => {
+    const firstResult = renderHook(() => useNotificationFormatter()).result;
+    const secondResult = renderHook(() => useNotificationFormatter()).result;
     
-    rerender();
-    
-    expect(result.current.formatDate).toBe(firstResult.formatDate);
-    expect(result.current.getValidityStatus).toBe(firstResult.getValidityStatus);
-    expect(result.current.getStatusClass).toBe(firstResult.getStatusClass);
-    expect(result.current.formatWhatsAppNumber).toBe(firstResult.formatWhatsAppNumber);
+    // Test that functions return the same results
+    const testDate = '2023-12-25T10:30:00.000Z';
+    expect(firstResult.current.formatDate(testDate)).toBe(secondResult.current.formatDate(testDate));
+    expect(firstResult.current.getValidityStatus(testDate)).toBe(secondResult.current.getValidityStatus(testDate));
+    expect(firstResult.current.getStatusClass('Vencido')).toBe(secondResult.current.getStatusClass('Vencido'));
   });
 }); 

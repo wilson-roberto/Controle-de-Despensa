@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import styles from '../styles/buttons/index.module.css';
 
 const ItemActions = ({ itemId }) => {
+  const navigate = useNavigate();
   const { deleteItem } = useApp();
 
   const handleDelete = async () => {
@@ -18,11 +20,23 @@ const ItemActions = ({ itemId }) => {
     }
   };
 
+  const handleEdit = () => {
+    navigate(`/editar-item/${itemId}`);
+  };
+
   return (
     <div className={styles.buttonContainer}>
       <button 
+        className={`${styles.button} ${styles.edit}`} 
+        onClick={handleEdit}
+        data-testid="edit-item-button"
+      >
+        Editar
+      </button>
+      <button 
         className={`${styles.button} ${styles.danger}`} 
         onClick={handleDelete}
+        data-testid="delete-item-button"
       >
         Excluir
       </button>

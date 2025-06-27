@@ -1,0 +1,123 @@
+name: Build Development
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm run install-all
+        
+      - name: Run tests
+        run: npm test
+
+  build-windows-dev:
+    name: Build Windows (Dev)
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm run install-all
+        
+      - name: Setup environment
+        run: npm run setup
+        
+      - name: Build for Windows
+        run: npm run build
+        
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-dev-build
+          path: dist/
+          retention-days: 7
+
+  build-macos-dev:
+    name: Build macOS (Dev)
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm run install-all
+        
+      - name: Setup environment
+        run: npm run setup
+        
+      - name: Build for macOS
+        run: npm run build-mac
+        
+      - name: Upload macOS build
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-dev-build
+          path: dist/
+          retention-days: 7
+
+  build-linux-dev:
+    name: Build Linux (Dev)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install Linux dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm
+          
+      - name: Install dependencies
+        run: npm run install-all
+        
+      - name: Setup environment
+        run: npm run setup
+        
+      - name: Build for Linux
+        run: npm run build-linux
+        
+      - name: Upload Linux build
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-dev-build
+          path: dist/
+          retention-days: 7 

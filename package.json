@@ -1,17 +1,32 @@
 {
   "name": "controle-despensa",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Projeto Controle de Despensa - Aplicação Desktop",
   "main": "electron/main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\" \"electron .\"",
+    "dev": "node scripts/dev.js",
+    "setup": "node scripts/setup.js",
+    "setup-windows": "node scripts/setup-windows.js",
+    "build": "node scripts/build.js",
+    "build-windows": "node scripts/build-windows.js",
+    "build-mac": "node scripts/build-mac.js",
+    "build-linux": "node scripts/build-linux.js",
+    "build-all": "node scripts/build-all.js",
+    "check": "node scripts/check.js",
+    "check-windows": "node scripts/check-windows.js",
+    "commit": "node scripts/commit-and-push.js",
+    "build-manual": "npm run build-frontend && npm run build-backend && electron-builder",
     "frontend": "cd frontend && npm start",
     "backend": "cd backend && npm run dev",
     "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
     "build-frontend": "cd frontend && npm run build",
     "build-backend": "cd backend && npm run build",
-    "build": "npm run build-frontend && npm run build-backend && electron-builder",
+    "test": "npm run test-frontend && npm run test-backend",
+    "test-frontend": "cd frontend && npm test",
+    "test-backend": "cd backend && npm test",
+    "clean": "rimraf dist frontend/build backend/logs/*",
+    "clean-windows": "if exist dist rmdir /s /q dist && if exist frontend\\build rmdir /s /q frontend\\build",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
@@ -20,7 +35,8 @@
   },
   "devDependencies": {
     "electron": "^28.1.0",
-    "electron-builder": "^24.9.1"
+    "electron-builder": "^24.9.1",
+    "rimraf": "^5.0.5"
   },
   "build": {
     "appId": "com.controle.despensa",
@@ -40,8 +56,49 @@
       }
     ],
     "win": {
-      "target": "nsis",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
       "icon": "electron/assets/icon.ico"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "electron/assets/icon.icns",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        },
+        {
+          "target": "rpm",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "electron/assets/icon.png",
+      "category": "Utility"
     },
     "nsis": {
       "oneClick": false,
@@ -51,6 +108,19 @@
       "perMachine": false,
       "deleteAppDataOnUninstall": true
     },
+    "dmg": {
+      "title": "Controle de Despensa",
+      "icon": "electron/assets/icon.icns",
+      "background": "electron/assets/dmg-background.png",
+      "window": {
+        "width": 540,
+        "height": 380
+      }
+    },
+    "appImage": {
+      "artifactName": "${productName}-${version}.${ext}",
+      "category": "Utility"
+    },
     "asar": true,
     "asarUnpack": [
       "backend/**/*"
@@ -58,5 +128,29 @@
     "extraMetadata": {
       "main": "electron/main.js"
     }
-  }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "despensa",
+    "controle",
+    "estoque",
+    "validade",
+    "electron",
+    "react",
+    "nodejs",
+    "mongodb"
+  ],
+  "author": "Wilson Roberto",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wilson-roberto/Controle-de-Despensa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wilson-roberto/Controle-de-Despensa/issues"
+  },
+  "homepage": "https://github.com/wilson-roberto/Controle-de-Despensa#readme"
 } 

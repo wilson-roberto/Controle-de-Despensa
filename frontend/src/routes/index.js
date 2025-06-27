@@ -4,9 +4,9 @@ import { useAuth } from '../context/AuthContext';
 import Home from '../pages/Home';
 import AddItemPage from '../pages/AddItemPage';
 import EditItemPage from '../pages/EditItemPage';
-import SelectItemPage from '../pages/SelectItemPage';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import NotificationUserRegister from '../pages/NotificationUserRegister';
 import NotFound from '../pages/NotFound';
 
 const ProtectedRoute = ({ children }) => {
@@ -37,6 +37,11 @@ const AppRoutes = () => {
       <Route path="/register" element={
         isAuthenticated ? <Navigate to="/" replace /> : <Register />
       } />
+      <Route path="/notification-user-register" element={
+        <ProtectedRoute>
+          <NotificationUserRegister />
+        </ProtectedRoute>
+      } />
       <Route path="/" element={
         <ProtectedRoute>
           <Home />
@@ -50,11 +55,6 @@ const AppRoutes = () => {
       <Route path="/editar-item/:id" element={
         <ProtectedRoute>
           <EditItemPage />
-        </ProtectedRoute>
-      } />
-      <Route path="/selecionar-item" element={
-        <ProtectedRoute>
-          <SelectItemPage />
         </ProtectedRoute>
       } />
       <Route path="*" element={<NotFound />} />

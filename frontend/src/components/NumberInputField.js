@@ -1,6 +1,5 @@
 import React from 'react';
 import gridStyles from './InputGrid.module.css';
-import numberStyles from './NumberInput.module.css';
 
 const NumberInputField = ({
   id,

@@ -32,15 +32,9 @@ async function importData() {
     // Preparar os dados para importação
     const items = data.map(item => {
       // Remover campos específicos do MongoDB que não são necessários
-      const { _id, __v, ...itemData } = item;
+      const { _id, __v, dataUltimaEntrada, dataUltimaSaida, ...itemData } = item;
       
       // Converter datas de string para objetos Date
-      if (itemData.dataUltimaEntrada) {
-        itemData.dataUltimaEntrada = new Date(itemData.dataUltimaEntrada.$date);
-      }
-      if (itemData.dataUltimaSaida) {
-        itemData.dataUltimaSaida = new Date(itemData.dataUltimaSaida.$date);
-      }
       if (itemData.dataValidade) {
         itemData.dataValidade = new Date(itemData.dataValidade.$date);
       }

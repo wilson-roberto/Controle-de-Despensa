@@ -2,6 +2,8 @@
   text-align: center !important;
   appearance: textfield;
   -moz-appearance: textfield;
+  width: 80px !important;
+  min-width: 80px !important;
 }
 
 .inputGroup input[type="number"]::-webkit-outer-spin-button,

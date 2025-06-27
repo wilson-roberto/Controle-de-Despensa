@@ -13,7 +13,7 @@ table {
 
 th, td {
   padding: 12px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #ddd;
 }
 
@@ -25,6 +25,7 @@ th {
   background-color: #f5f5f5;
   font-weight: 600;
   color: #333;
+  text-align: center;
 }
 
 tr:hover {
@@ -241,7 +242,6 @@ input:invalid {
 .date-field {
   position: relative;
   width: auto;
-  min-width: 130px;
   display: flex;
   align-items: center;
   justify-content: flex-end;

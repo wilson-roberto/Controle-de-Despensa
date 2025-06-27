@@ -5,12 +5,54 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+
+.logoutCard {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border-radius: 8px;
+  box-shadow: none;
+  padding: 8px;
+  z-index: 10;
+  min-width: auto;
+  transition: all 0.3s ease;
+}
+
+.logoutCard.expanded {
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  min-width: 200px;
+}
+
+.logoutCard:not(.expanded) .cardHeader {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.cardButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .header {
   text-align: center;
   margin-bottom: 2rem;
   width: 100%;
+  margin-top: 60px;
 }
 
 .header h1 {
@@ -42,9 +84,73 @@
   color: #dc3545;
 }
 
+/* Estilos para indicador de notificação */
+.notificationIndicator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notificationBadge {
+  color: #856404;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.showNotificationsButton {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.showNotificationsButton:hover {
+  background-color: #c0392b;
+}
+
+.showNotificationsButton:focus {
+  outline: 2px solid #2196F3;
+  outline-offset: 2px;
+}
+
+/* Responsividade para o indicador de notificação */
+@media screen and (max-width: 600px) {
+  .notificationIndicator {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .showNotificationsButton {
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .homeContainer {
     padding: 10px;
+  }
+
+  .logoutCard {
+    top: 10px;
+    right: 10px;
+    padding: 8px;
+    min-width: 180px;
+  }
+
+  .header {
+    margin-top: 50px;
   }
 
   .content {

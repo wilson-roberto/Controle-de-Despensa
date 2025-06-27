@@ -1,39 +1,4 @@
 /**
- * Formata um número de telefone para o padrão WhatsApp
- * Remove caracteres não numéricos e adiciona formatação (XX) XXXXX-XXXX
- */
-export const formatWhatsAppNumber = (number) => {
-  // Se for undefined, null ou vazio
-  if (!number) return '';
-  
-  // Se for array, formata cada número e junta com vírgula
-  if (Array.isArray(number)) {
-    return number
-      .map(n => formatWhatsAppNumber(n))
-      .filter(Boolean)
-      .join(', ');
-  }
-  
-  // Converte para string e remove caracteres não numéricos
-  const numericValue = String(number || '').replace(/\D/g, '');
-  
-  // Se não houver números após a limpeza
-  if (!numericValue) return '';
-  
-  // Remove o prefixo 55 se existir
-  const cleanNumber = numericValue.startsWith('55') ? numericValue.slice(2) : numericValue;
-  
-  // Formata o número conforme o tamanho
-  if (cleanNumber.length <= 2) {
-    return `(${cleanNumber}`;
-  } else if (cleanNumber.length <= 7) {
-    return `(${cleanNumber.slice(0, 2)}) ${cleanNumber.slice(2)}`;
-  } else {
-    return `(${cleanNumber.slice(0, 2)}) ${cleanNumber.slice(2, 7)}-${cleanNumber.slice(7, 11)}`;
-  }
-};
-
-/**
  * Converte a primeira letra de uma string para maiúscula
  */
 export const capitalizeFirstLetter = (string) => {
@@ -42,26 +7,66 @@ export const capitalizeFirstLetter = (string) => {
 };
 
 /**
- * Formata um número de WhatsApp para o formato internacional
- * Adiciona o prefixo 55 se necessário e remove formatação
+ * Capitaliza a primeira letra de cada palavra, exceto preposições
  */
-export const formatWhatsAppForAPI = (number) => {
-  // Se for undefined, null ou vazio
-  if (!number) return '';
+export const capitalizeWords = (string) => {
+  if (!string) return '';
   
-  // Se for array, formata todos os números válidos
-  if (Array.isArray(number)) {
-    return number
-      .map(n => formatWhatsAppForAPI(n))
-      .filter(Boolean);
-  }
+  // Lista de preposições que não devem ser capitalizadas
+  const prepositions = ['de', 'da', 'do', 'das', 'dos', 'em', 'na', 'no', 'nas', 'nos', 'por', 'para', 'com', 'sem', 'sob', 'sobre', 'entre', 'contra', 'desde', 'até', 'perante', 'segundo', 'conforme', 'mediante', 'salvo', 'exceto', 'menos', 'fora', 'afora', 'senão', 'tirante', 'que', 'se', 'mas', 'e', 'ou', 'nem', 'tanto', 'quanto', 'como', 'assim', 'logo', 'portanto', 'então', 'pois', 'porque', 'já', 'ainda', 'sempre', 'nunca', 'jamais', 'talvez', 'quiçá', 'acaso', 'porventura', 'será', 'quem', 'qual', 'quais', 'quanto', 'quanta', 'quantos', 'quantas', 'cujo', 'cuja', 'cujos', 'cujas', 'onde', 'quando', 'como', 'porque', 'porquê', 'por que', 'para que', 'a fim de que', 'de modo que', 'de forma que', 'de maneira que', 'de sorte que', 'de jeito que', 'de tal forma que', 'de tal modo que', 'de tal maneira que', 'de tal sorte que', 'de tal jeito que'];
   
-  // Converte para string e remove caracteres não numéricos
-  const numericValue = String(number || '').replace(/\D/g, '');
+  return string
+    .toLowerCase()
+    .split(' ')
+    .map((word, index) => {
+      // Se for a primeira palavra ou não for preposição, capitaliza
+      if (index === 0 || !prepositions.includes(word.toLowerCase())) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }
+      return word.toLowerCase();
+    })
+    .join(' ');
+};
+
+/**
+ * Automatiza a acentuação de palavras comuns em português.
+ * Exemplo: cafe -> café, pao -> pão, acucar -> açúcar
+ */
+export const autoAccent = (string) => {
+  if (!string) return '';
   
-  // Se não houver números após a limpeza
-  if (!numericValue) return '';
+  // Dicionário simples de palavras comuns sem acento -> com acento
+  const accentMap = {
+    'cafe': 'café',
+    'pao': 'pão',
+    'acucar': 'açúcar',
+    'feijao': 'feijão',
+    'leite': 'leite',
+    'mamao': 'mamão',
+    'limao': 'limão',
+    'melao': 'melão',
+    'coracao': 'coração',
+    'irmao': 'irmão',
+    'irmaos': 'irmãos',
+    'aviao': 'avião',
+    'camarao': 'camarão',
+    'macarrao': 'macarrão',
+    'sabado': 'sábado',
+    'sabados': 'sábados',
+    'sabia': 'sabía',
+    'sabio': 'sábio',
+    'sabios': 'sábios',
+    'mae': 'mãe',
+    'maes': 'mães',
+    'voce': 'você',
+    'voces': 'vocês',
+    'ja': 'já',
+    'ate': 'até',
+    'oleo': 'óleo',
+    'oleos': 'óleos',
+    // Adicione mais conforme necessário
+  };
   
-  // Adiciona o prefixo 55 se não existir
-  return numericValue.startsWith('55') ? numericValue : `55${numericValue}`;
+  // Converte para minúscula e substitui cada palavra se estiver no dicionário
+  return string.toLowerCase().split(' ').map(word => accentMap[word] || word).join(' ');
 }; 

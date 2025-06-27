@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../context/AuthContext';
@@ -111,7 +111,11 @@ const Login = () => {
       let errorMessage = 'Erro ao tentar fazer login. Tente novamente.';
       if (error.response) {
         if (error.response.status === 401) {
-          errorMessage = 'Usuário inválido ou senha incorreta.';
+          if (error.response.data && error.response.data.errorType === 'user_not_found') {
+            errorMessage = error.response.data.message;
+          } else {
+            errorMessage = 'Usuário inválido ou senha incorreta.';
+          }
         } else if (error.response.status === 500) {
           errorMessage = 'Erro interno do servidor. Por favor, tente novamente mais tarde.';
         }
@@ -218,6 +222,12 @@ const Login = () => {
           >
             {isSubmitting ? 'Entrando...' : 'Entrar'}
           </button>
+        </div>
+
+        <div className={styles.registerLink}>
+          <p>
+            Não tem uma conta? <Link to="/register">Registre-se aqui</Link>
+          </p>
         </div>
       </form>
     </div>

@@ -8,22 +8,16 @@ const itemSchema = new mongoose.Schema({
   },
   unidade: {
     type: String,
-    default: 'unidade',
+    required: [true, 'Unidade é obrigatória'],
     trim: true
   },
   quantidadeEntrada: {
     type: Number,
     default: 0
   },
-  dataUltimaEntrada: {
-    type: Date
-  },
   quantidadeSaida: {
     type: Number,
     default: 0
-  },
-  dataUltimaSaida: {
-    type: Date
   },
   totalEstoque: {
     type: Number,
@@ -36,10 +30,6 @@ const itemSchema = new mongoose.Schema({
   limiteEstoque: {
     type: Number,
     default: 0
-  },
-  whatsapp: {
-    type: [String],
-    default: []
   },
   notificado: {
     type: Boolean,

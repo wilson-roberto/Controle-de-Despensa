@@ -29,7 +29,12 @@ const config = {
 
 // Seleciona a configuração baseada no ambiente
 const env = process.env.NODE_ENV || 'development';
-const currentConfig = config[env];
+let currentConfig = config[env];
+
+// Se o ambiente não for reconhecido, usar 'development' como padrão
+if (!currentConfig) {
+  currentConfig = config['development'];
+}
 
 // Validação de configurações críticas em produção
 if (env === 'production') {
