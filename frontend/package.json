@@ -34,7 +34,7 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/preset-env": "^7.24.0",
-    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-react": "^7.27.1",
     "buffer": "^6.0.3",
     "process": "^0.11.10",
     "react-app-rewired": "^2.2.1"
