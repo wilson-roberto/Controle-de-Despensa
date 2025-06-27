@@ -2,8 +2,6 @@
 
 Aplicação desktop para controle de estoque e validade de produtos em despensas, desenvolvida com React, Electron e Node.js.
 
-*Última atualização: 27/12/2024 15:30*
-
 ## 📋 Sobre o Projeto
 
 O Controle de Despensa é uma aplicação desktop que permite gerenciar de forma eficiente o estoque e a validade dos produtos em sua despensa. Com uma interface intuitiva e recursos avançados, você pode manter o controle total dos seus produtos e evitar desperdícios.
